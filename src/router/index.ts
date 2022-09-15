@@ -7,13 +7,15 @@ export const menuRoute: RouteRecordRaw = {
   path: '/',
   name: 'Home',
   component: LayoutVue,
+  redirect: { name: 'DashboardView' },
   children: [
     {
       path: 'dashboard',
       name: 'DashboardView',
       component: () => import('@/views/Dashboard.vue'),
       meta: {
-        title:'主页'
+        title: '主页',
+        icon: 'dashboard'
       }
     },
     {
@@ -21,7 +23,8 @@ export const menuRoute: RouteRecordRaw = {
       name: 'AboutView',
       component: () => import('@/views/About.vue'),
       meta: {
-        title:'关于'
+        title: '关于',
+        icon: 'menu'
       }
     }
   ]
@@ -32,7 +35,7 @@ const router = createRouter({
   routes: [
     menuRoute,
     {
-      path:'/login',
+      path: '/login',
       component: () => import('@/views/Login.vue')
     },
     {

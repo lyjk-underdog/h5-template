@@ -14,7 +14,7 @@
 </template>
 
 <script setup lang="ts">
-import type { SidebarItem } from '@/layout/types';
+import type { SidebarItem } from './types';
 import path from 'path-browserify';
 import SidebarItemInfoVue from './SidebarItemInfo.vue';
 

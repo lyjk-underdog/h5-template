@@ -14,7 +14,7 @@
 </template>
 
 <script setup lang="ts">
-import SidebarVue from './components/Sidebar.vue';
+import SidebarVue from './components/Sidebar/index.vue';
 </script>
 
 <style scoped lang="scss">

@@ -1,9 +1,9 @@
-import type { Component } from 'vue';
 import 'vue-router';
+import type { IconClass } from '@/icons/svg/types';
 
 declare module 'vue-router' {
     interface RouteMeta {
-        icon?: Component;
+        icon?: IconClass;
         title?: string;
     }
 }

@@ -1,9 +1,9 @@
-import type { Component } from "vue"
+import type { IconClass } from '@/icons/svg/types';
 import type { RouteRecordRaw } from 'vue-router';
 
 export namespace SidebarItemInfo {
     export namespace Props {
-        export type Icon = Component;
+        export type Icon = IconClass;
         export type Title = string;
     }
 }
