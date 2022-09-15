@@ -32,6 +32,10 @@ const router = createRouter({
   routes: [
     menuRoute,
     {
+      path:'/login',
+      component: () => import('@/views/Login.vue')
+    },
+    {
       path: '/:pathMatch(.*)*',
       component: () => import('@/views/404.vue')
     }
