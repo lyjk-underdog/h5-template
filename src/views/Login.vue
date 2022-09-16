@@ -21,6 +21,9 @@
   
 <script setup lang="ts">
 import type { FormRules, FormInstance } from 'element-plus';
+import useUserStore from '@/store/modules/user';
+
+const userStore = useUserStore();
 
 const loginFormRef = ref<FormInstance>();
 const form = reactive({
@@ -40,9 +43,12 @@ const rules: FormRules = {
 }
 
 function submit() {
-    loginFormRef.value?.validate((vaild) => {
-        if(vaild) {
-            console.log(form);
+    loginFormRef.value?.validate(async (vaild) => {
+        if (vaild) {
+            await userStore.login({
+                username: form.username,
+                password: form.password
+            });
         }
     })
 }
