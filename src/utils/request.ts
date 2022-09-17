@@ -2,22 +2,11 @@ import axios from 'axios';
 import type { AxiosInstance, AxiosRequestConfig } from 'axios';
 import useUserStore from '@/store/modules/user';
 
-
 // 后端返回格式接口
 export interface ResultData<T> {
-    code: '200' | '500';
+    code: 200 | 402 | 500;
     message: string;
-    data: T;
-}
-
-// 错误处理
-const errHandler = {
-    '500'(message: ResultData<any>['message']) {
-        ElMessage({
-            type: 'error',
-            message
-        });
-    }
+    data?: T;
 }
 
 class Service {
@@ -29,14 +18,18 @@ class Service {
         // 请求拦截
         this.instance.interceptors.request.use(
             (config) => {
-                config.headers = {}
-                
-                
+                const userStore = useUserStore();
+                if (userStore.token) {
+                    config.headers = {
+                        token: userStore.token
+                    }
+                }
 
                 return config;
             },
             (err) => {
-                return Promise.reject(err)
+                console.error(err);
+                return Promise.reject(err);
             }
         )
 
@@ -44,16 +37,26 @@ class Service {
         this.instance.interceptors.response.use(
             (response) => {
                 const data = response.data as ResultData<any>;
+                const userStore = useUserStore();
 
-                if (data.code !== '200') errHandler[data.code](data.message);
+                if (data.code !== 200) {
+                    ElMessage({
+                        type: 'error',
+                        message: data.message
+                    })
+
+                    if (data.code === 402) {
+                        userStore.resetToken();
+                        location.reload();
+                    }
+
+                    return Promise.reject(new Error(data.message))
+                }
 
                 return data;
             },
             (err) => {
-                ElMessage({
-                    type: 'error',
-                    message: err
-                });
+                console.error(err);
                 return Promise.reject(err)
             }
         )
@@ -72,7 +75,7 @@ class Service {
 }
 
 let service = new Service({
-    url: import.meta.env.VITE_APP_BASE_URL,
+    url: import.meta.env.VITE_BASE_URL,
     timeout: 15000,
 });
 

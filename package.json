@@ -12,6 +12,7 @@
     "axios": "^0.27.2",
     "element-plus": "^2.2.16",
     "js-cookie": "^3.0.1",
+    "nprogress": "^0.2.0",
     "path-browserify": "^1.0.1",
     "pinia": "^2.0.22",
     "vue": "^3.2.38",
@@ -20,6 +21,7 @@
   "devDependencies": {
     "@types/js-cookie": "^3.0.2",
     "@types/node": "^16.11.56",
+    "@types/nprogress": "^0.2.0",
     "@types/path-browserify": "^1.0.0",
     "@vitejs/plugin-vue": "^3.0.3",
     "@vitejs/plugin-vue-jsx": "^2.0.1",
@@ -31,7 +33,7 @@
     "unplugin-vue-components": "^0.22.7",
     "vite": "^3.0.9",
     "vite-plugin-mock": "^2.9.6",
-    "vite-svg-plugin": "^1.0.1",
+    "vite-svg-plugin": "^1.0.2",
     "vue-tsc": "^0.40.7"
   }
 }

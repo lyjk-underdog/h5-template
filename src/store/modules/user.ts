@@ -1,18 +1,28 @@
 import { defineStore } from 'pinia';
 import * as userApi from '@/apis/user';
-import type { User } from '@/apis/user/types';
+import type { UserApi } from '@/apis/user/types';
 import { setToken, getToken, removeToken } from '@/utils/auth';
 
 const useUserStore = defineStore('user', () => {
 
     const state = reactive({
-        token: getToken()
+        token: getToken(),
+        name: '',
+        avatar: ''
     })
 
-    async function login(req: User.Login.Req) {
-        const { data } = await userApi.login(req);
-        state.token = data;
-        setToken(data);
+    async function login(req: UserApi.Login.Req) {
+        const res = await userApi.login(req);
+        const token = res.data!;
+        state.token = token;
+        setToken(token);
+    }
+
+    async function getInfo() {
+        const res = await userApi.Info();
+        const { name, avatar } = res.data!;
+        state.name = name;
+        state.avatar = avatar;
     }
 
     function resetToken() {
@@ -23,6 +33,7 @@ const useUserStore = defineStore('user', () => {
     return {
         ...toRefs(state),
         login,
+        getInfo,
         resetToken
     }
 })

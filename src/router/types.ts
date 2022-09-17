@@ -7,3 +7,11 @@ declare module 'vue-router' {
         title?: string;
     }
 }
+
+export const enum RouteName {
+    Index = 'IndexView',
+    Error = 'ErrorView',
+    Login = 'LoginView',
+    Dashboard = 'DashboardView',
+    About = 'AboutView'
+}

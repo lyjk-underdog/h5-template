@@ -1,10 +1,17 @@
 import service from '@/utils/request';
-import type { User } from './types';
+import type { UserApi } from './types';
 
-export const login: User.Login.Fn = function (data) {
+export const login: UserApi.Login.Fn = function (data) {
     return service.request({
-        url: 'user/login',
+        url: '/user/login',
         method: 'post',
         data
     });
+}
+
+export const Info: UserApi.Info.Fn = function () {
+    return service.request({
+        url: '/user/info',
+        method: 'get'
+    })
 }

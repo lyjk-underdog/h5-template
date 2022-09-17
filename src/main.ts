@@ -3,6 +3,8 @@ import App from './App.vue'
 
 import './styles/index.scss' // 加载全局样式
 
+import './permission';
+
 import router from './router'
 import pinia from './store'
 

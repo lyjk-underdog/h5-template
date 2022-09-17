@@ -22,8 +22,13 @@
 <script setup lang="ts">
 import type { FormRules, FormInstance } from 'element-plus';
 import useUserStore from '@/store/modules/user';
+import { RouteName } from '@/router/types';
+import { AxiosError } from 'axios';
 
 const userStore = useUserStore();
+
+const router = useRouter();
+const curRoute = useRoute();
 
 const loginFormRef = ref<FormInstance>();
 const form = reactive({
@@ -49,6 +54,7 @@ function submit() {
                 username: form.username,
                 password: form.password
             });
+            router.replace({ name: curRoute.query.redirect as (undefined | RouteName) || RouteName.Index })
         }
     })
 }
