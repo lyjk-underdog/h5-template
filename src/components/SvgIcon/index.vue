@@ -5,10 +5,10 @@
 </template>
 
 <script setup lang="ts">
-import type { SvgIcon } from './types';
+import type { SvgIconVue } from './types';
 
 interface Props {
-    iconClass: SvgIcon.Props.IconClass
+    iconClass: SvgIconVue.Props.IconClass
 }
 const props = defineProps<Props>();
 

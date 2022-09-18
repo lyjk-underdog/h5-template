@@ -5,11 +5,11 @@
 </template>
 
 <script setup lang="ts">
-import type { SidebarItemInfo } from './types';
+import type { SidebarItemInfoVue } from './types';
 
 interface Props {
-    icon?: SidebarItemInfo.Props.Icon,
-    title?: SidebarItemInfo.Props.Title
+    icon?: SidebarItemInfoVue.Props.Icon,
+    title?: SidebarItemInfoVue.Props.Title
 }
 const props = withDefaults(defineProps<Props>(), {
     icon: 'menu',

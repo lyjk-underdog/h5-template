@@ -14,13 +14,13 @@
 </template>
 
 <script setup lang="ts">
-import type { SidebarItem } from './types';
-import path from 'path-browserify';
+import type { SidebarItemVue } from './types';
 import SidebarItemInfoVue from './SidebarItemInfo.vue';
+import path from 'path-browserify';
 
 interface Props {
-    route: SidebarItem.Props.Route,
-    defaultPath: SidebarItem.Props.DefaultPath
+    route: SidebarItemVue.Props.Route,
+    defaultPath: SidebarItemVue.Props.DefaultPath
 }
 const props = defineProps<Props>();
 

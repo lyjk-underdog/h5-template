@@ -3,7 +3,9 @@
         <div class="p-layout_sidebar">
             <SidebarVue />
         </div>
-        <div class="p-layout_main">
+        <div class="p-layout_body">
+            <NavbarVue />
+            
             <RouterView #default="{ Component }">
                 <KeepAlive>
                     <component :is="Component"></component>
@@ -15,6 +17,7 @@
 
 <script setup lang="ts">
 import SidebarVue from './components/Sidebar/index.vue';
+import NavbarVue from './components/Navbar/index.vue';
 </script>
 
 <style scoped lang="scss">
@@ -30,7 +33,7 @@ import SidebarVue from './components/Sidebar/index.vue';
         height: 100%;
     }
 
-    &_main {
+    &_body {
         flex: 1 1 auto;
     }
 }

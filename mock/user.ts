@@ -33,13 +33,13 @@ export default [
                     message: 'ok',
                     data: {
                         name: 'lyjk',
-                        avatar: ''
+                        avatar: 'https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif?imageView2/1/w/80/h/80'
                     }
                 }
             }
 
             return {
-                code: 200,
+                code: 402,
                 message: '登录已过期，请重新登录!'
             }
         }
