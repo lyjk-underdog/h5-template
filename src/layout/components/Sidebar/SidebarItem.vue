@@ -13,16 +13,23 @@
     </ElSubMenu>
 </template>
 
+<script lang="ts">
+import type { RouteRecordRaw } from 'vue-router';
+
+export namespace Props {
+    export type Route = RouteRecordRaw;
+    export type DefaultPath = string;
+}
+</script>
+
 <script setup lang="ts">
-import type { SidebarItemVue } from './types';
 import SidebarItemInfoVue from './SidebarItemInfo.vue';
 import path from 'path-browserify';
 
-interface Props {
-    route: SidebarItemVue.Props.Route,
-    defaultPath: SidebarItemVue.Props.DefaultPath
-}
-const props = defineProps<Props>();
+const props = defineProps<{
+    route: Props.Route,
+    defaultPath: Props.DefaultPath
+}>();
 
 const hasChilren = computed(() => {
     return !!props.route.children?.length;

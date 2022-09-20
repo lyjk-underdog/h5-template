@@ -4,13 +4,19 @@
     </svg>
 </template>
 
-<script setup lang="ts">
-import type { SvgIconVue } from './types';
+<script lang="ts">
+import type * as SvgTypes from '@/icons/svg/types';
 
-interface Props {
-    iconClass: SvgIconVue.Props.IconClass
+export namespace Props {
+    export type IconClass = SvgTypes.IconClass;
 }
-const props = defineProps<Props>();
+</script>
+
+<script setup lang="ts">
+
+const props = defineProps<{
+    iconClass: Props.IconClass
+}>();
 
 const iconName = computed(() => '#icon-' + props.iconClass);
 </script>

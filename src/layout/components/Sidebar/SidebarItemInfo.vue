@@ -4,14 +4,21 @@
     <span>{{props.title}}</span>
 </template>
 
-<script setup lang="ts">
-import type { SidebarItemInfoVue } from './types';
+<script lang="ts">
+import type { IconClass } from '@/icons/svg/types';
 
-interface Props {
-    icon?: SidebarItemInfoVue.Props.Icon,
-    title?: SidebarItemInfoVue.Props.Title
+export namespace Props {
+    export type Icon = IconClass;
+    export type Title = string;
 }
-const props = withDefaults(defineProps<Props>(), {
+</script>
+
+<script setup lang="ts">
+
+const props = withDefaults(defineProps<{
+    icon?: Props.Icon,
+    title?: Props.Title
+}>(), {
     icon: 'menu',
     title: ''
 });
