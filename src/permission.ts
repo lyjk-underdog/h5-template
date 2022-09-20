@@ -1,10 +1,10 @@
 import router from './router';
-import { RouteName } from './router/types';
+import { RouteRecordName } from './router/types';
 import useUserStore from './store/modules/user';
 import Nprogress from 'nprogress';
 import 'nprogress/nprogress.css';
 
-const whitelist = [RouteName.Login];
+const whitelist = [RouteRecordName.Login];
 
 router.beforeEach(async (to, from) => {
     const userStore = useUserStore();
@@ -12,19 +12,19 @@ router.beforeEach(async (to, from) => {
     Nprogress.start();
 
     if (userStore.token) {
-        if (to.name === RouteName.Login) {
-            return { name: RouteName.Index };
+        if (to.name === RouteRecordName.Login) {
+            return { name: RouteRecordName.Index };
         }
 
         if (!userStore.name) await userStore.getInfo();
         return true;
 
     } else {
-        if (whitelist.includes(to.name as RouteName)) {
+        if (whitelist.includes(to.name as RouteRecordName)) {
             return true;
         }
 
-        return { name: RouteName.Login, query: { redirect: to.name as RouteName } };
+        return { name: RouteRecordName.Login, query: { redirect: to.name as RouteRecordName } };
     }
 })
 

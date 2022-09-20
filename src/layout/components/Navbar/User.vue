@@ -18,7 +18,7 @@
 <script setup lang="ts">
 import { CaretBottom } from '@element-plus/icons-vue';
 import useUserStore from '@/store/modules/user';
-import { RouteName } from '@/router/types';
+import { RouteRecordName } from '@/router/types';
 
 const userStore = useUserStore();
 const router = useRouter();
@@ -26,7 +26,7 @@ const route = useRoute();
 
 function logout() {
     userStore.resetToken();
-    router.replace({ name: RouteName.Login, query: { redirect: route.name as RouteName } })
+    router.replace({ name: RouteRecordName.Login, query: { redirect: route.name as RouteRecordName } })
 }
 
 

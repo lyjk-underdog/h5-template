@@ -6,9 +6,14 @@ declare module 'vue-router' {
         icon?: IconClass;
         title?: string;
     }
+
+    type customRouteRecordRaw = RouteRecordRaw & {
+        name: RouteRecordName,
+        children?: customRouteRecordRaw[]
+    }
 }
 
-export const enum RouteName {
+export const enum RouteRecordName {
     Index = 'IndexView',
     Error = 'ErrorView',
     Login = 'LoginView',
