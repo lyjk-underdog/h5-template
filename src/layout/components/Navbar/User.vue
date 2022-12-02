@@ -3,7 +3,8 @@
     <ElDropdown>
         <div class="c-navbar-user">
             <img class="c-navbar-user_avatar" :src="userStore.avatar">
-            <ElIcon>
+            <span class="c-navbar-user_name">{{userStore.name}}</span>
+            <ElIcon :size="20" color="#fff">
                 <CaretBottom />
             </ElIcon>
         </div>
@@ -35,11 +36,21 @@ function logout() {
 <style lang="scss" scoped>
 .c-navbar-user {
     cursor: pointer;
+    display: flex;
+    align-items: center;
 
     &_avatar {
-        width: 40px;
-        border-radius: 10px;
-        margin-right: 5px;
+        width: 36px;
+        border-radius: 50%;
+        box-shadow: 0px 3px 6px rgba(0,0,0,0.16);
+        margin-right: 20px;
+    }
+
+    &_name {
+        font-size: 20px;
+        font-weight: bold;
+        color: #FFFFFF;
+        margin-right: 12px;
     }
 }
 </style>

@@ -1,19 +1,19 @@
 <template>
     <div class="p-login">
-        <ElForm class="login-form" ref="loginFormRef" :model="form" :rules="rules">
-            <div class="login-form_header">
-                <h3 class="login-form_title">Login Form</h3>
+        <ElForm class="c-login-form" ref="loginFormRef" :model="form" :rules="rules">
+            <div class="c-login-form_header">登录</div>
+
+            <div class="c-login-form_body">
+                <ElFormItem prop="username">
+                    <ElInput v-model="form.username" placeholder="Username" type="text" size="large" />
+                </ElFormItem>
+
+                <ElFormItem prop="password">
+                    <ElInput v-model="form.password" placeholder="Password" type="password" size="large" />
+                </ElFormItem>
+
+                <ElButton class="c-login-form_login-btn" size="large" type="primary" @click="submit">登录</ElButton>
             </div>
-
-            <ElFormItem prop="username">
-                <ElInput v-model="form.username" placeholder="Username" type="text" />
-            </ElFormItem>
-
-            <ElFormItem prop="password">
-                <ElInput v-model="form.password" placeholder="Password" type="password" />
-            </ElFormItem>
-
-            <ElButton class="login-form_login-btn" type="primary" @click="submit">Login</ElButton>
 
         </ElForm>
     </div>
@@ -63,27 +63,26 @@ function submit() {
 <style lang="scss" scoped>
 .p-login {
     min-height: 100vh;
-    background-color: #2d3a4b;
-    overflow: hidden;
+    background-color: #F2F3F7;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
-    .login-form {
-        position: relative;
-        width: 520px;
-        max-width: 100%;
-        padding: 160px 35px 0;
-        margin: 0 auto;
-        overflow: hidden;
+    .c-login-form {
+        width: 320px;
+        background: #fff;
+        border-radius: 16px;
 
         &_header {
-            position: relative;
+            text-align: center;
+            padding: 22px 0;
+            color: #758093;
+            font-size: 16px;
+            font-weight: bold;
         }
 
-        &_title {
-            font-size: 26px;
-            color: #fff;
-            margin: 0px auto 40px auto;
-            text-align: center;
-            font-weight: bold;
+        &_body {
+            padding: 10px 24px 50px;
         }
 
         &_login-btn {

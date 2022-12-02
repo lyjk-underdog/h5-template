@@ -1,34 +1,45 @@
 <template>
     <div class="c-navbar">
-        <section class="l-breadcrumb">
-            <BreadcrumbVue />
-        </section>
+        <TitleVue />
 
-        <section class="l-user">
-            <UserVue />
-        </section>
+        <div class="c-trapezoidal-box">
+            <i></i>
+            <div class="c-trapezoidal-box_body">
+                <UserVue />
+            </div>
+        </div>
     </div>
 </template>
 
 <script setup lang="ts">
-import BreadcrumbVue from './Breadcrumb.vue';
 import UserVue from './User.vue';
+import TitleVue from './Title.vue';
 </script>
 
 <style lang="scss" scoped>
 .c-navbar {
+    height: 64px;
+    border-bottom: 1px solid #ccc;
     display: flex;
+    justify-content: space-between;
     align-items: center;
-    background: #fff;
-    box-shadow: 0 1px 4px rgba(0, 21, 41, .08);
-    padding: 5px 10px;
 
-    .l-breadcrumb {
-        flex: 1 1 auto;
-    }
+    .c-trapezoidal-box {
+        display: flex;
 
-    .l-user {
-        flex: 0 0 auto;
+        i {
+            border-left: 30px solid transparent;
+            border-bottom: 64px solid #5592FE;
+        }
+
+        &_body {
+            height: 64px;
+            width: 356px;
+            background: #5592FE;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
     }
 }
 </style>

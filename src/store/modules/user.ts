@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia';
 import * as userApi from '@/apis/user';
-import type { UserApi } from '@/apis/user/types';
+import type { UserApi } from '@/apis/user';
 import { setToken, getToken, removeToken } from '@/utils/auth';
 
 const useUserStore = defineStore('user', () => {

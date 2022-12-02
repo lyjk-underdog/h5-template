@@ -17,7 +17,7 @@ export const menuRoute: customRouteRecordRaw = {
       meta: {
         title: '主页',
         icon: 'dashboard'
-      }
+      },
     },
     {
       path: 'about',
@@ -27,7 +27,7 @@ export const menuRoute: customRouteRecordRaw = {
         title: '关于',
         icon: 'menu'
       }
-    }
+    },
   ]
 }
 

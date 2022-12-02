@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios, { Axios } from 'axios';
 import type { AxiosInstance, AxiosRequestConfig } from 'axios';
 import useUserStore from '@/store/modules/user';
 
@@ -7,6 +7,11 @@ export interface ResultData<T> {
     code: 200 | 402 | 500;
     message: string;
     data?: T;
+}
+
+interface RequestConfig<T> extends AxiosRequestConfig<T> {
+    data?: T,
+    params?: T
 }
 
 class Service {
@@ -68,15 +73,16 @@ class Service {
      * @param {RequestConfig} config 
      * @returns {Promise}
     */
-    request<T, U>(config: AxiosRequestConfig<T>): Promise<U> {
+    request<T, U>(config: RequestConfig<T>): Promise<U> {
         return this.instance.request(config);
     }
 
 }
 
 let service = new Service({
-    url: import.meta.env.VITE_BASE_URL,
+    url: import.meta.env.BASE_URL,
     timeout: 15000,
+    withCredentials: false
 });
 
 export default service;

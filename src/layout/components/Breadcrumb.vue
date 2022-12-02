@@ -1,8 +1,9 @@
 <template>
     <ElBreadcrumb separator="/">
-        <ElBreadcrumbItem v-for="routingRecord in matchedList" :key="routingRecord.path"
-            :to="{name: routingRecord.name}">
-            {{routingRecord.meta.title}}
+        <ElBreadcrumbItem v-for="(routingRecord, index) in matchedList" :key="routingRecord.path"
+            :to="{ name: routingRecord.name }">
+            <span
+                :style="{ color: index === matchedList.length - 1 ? '#2A77FF' : '#666666' }">{{ routingRecord.meta.title }}</span>
         </ElBreadcrumbItem>
     </ElBreadcrumb>
 </template>
