@@ -1,11 +1,13 @@
 import type { MockMethod } from 'vite-plugin-mock';
-import type { UserApi } from '../src/apis/user';
 
 export default [
     {
-        url: '/user/login',
+        url: '/mock/user/login',
         method: 'post',
-        response({ body: { username, password } }: { body: UserApi.Login.Req }): UserApi.Login.Res {
+        response(opt: any) {
+
+            const { username, password } = opt.body;
+
             if (username === 'user' && password === '123') {
                 return {
                     code: 200,
@@ -22,11 +24,11 @@ export default [
     },
 
     {
-        url: '/user/info',
+        url: '/mock/user/info',
         method: 'get',
-        response({ headers: {token} }: { headers: { token: string } }): UserApi.Info.Res {
-            console.log(token);
-            
+        response(opt: any) {
+            const { token } = opt.headers;            
+
             if (token === 'user token') {
                 return {
                     code: 200,

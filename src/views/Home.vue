@@ -1,12 +1,10 @@
 <template>
     <div>
-        About
-        <input type="text">
+        home
     </div>
 </template>
 
 <script setup lang="ts">
-
 
 </script>
 

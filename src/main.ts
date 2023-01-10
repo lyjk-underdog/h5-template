@@ -2,6 +2,7 @@ import { createApp } from 'vue'
 import App from './App.vue'
 
 import './assets/style/index.scss' // 加载全局样式
+import 'vant/es/dialog/style'; // vant 弹窗样式
 
 import './permission';
 

@@ -1,38 +1,26 @@
-import service from '@/utils/request';
-import type { ResultData } from '@/utils/request';
+import { request } from '@/utils/request';
 
-// types
-export namespace UserApi {
-    export namespace Login {
-        export type Req = {
-            username: string,
-            password: string
-        }
-        export type Res = ResultData<string>
-        export type Fn = (req: Req) => Promise<Res>
-    }
-
-    export namespace Info {
-        export type Res = ResultData<{
-            name: string,
-            avatar: string
-        }>
-        export type Fn = () => Promise<Res>
-    }
+export interface LoginForm {
+    username: string;
+    password: string;
 }
 
-
-export const login: UserApi.Login.Fn = function (data) {
-    return service.request({
-        url: '/user/login',
-        method: 'post',
-        data
-    });
+export interface UserInfo {
+    name: string;
+    avatar: string;
 }
 
-export const Info: UserApi.Info.Fn = function () {
-    return service.request({
-        url: '/user/info',
-        method: 'get',
+export function login(form: LoginForm) {
+    return request<{ data: string }>({
+        url: '/mock/user/login',
+        method: 'POST',
+        data: form
+    })
+}
+
+export function info() {
+    return request<{ data: UserInfo }>({
+        url: '/mock/user/info',
+        method: 'GET'
     })
 }

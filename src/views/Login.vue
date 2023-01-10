@@ -1,26 +1,24 @@
 <template>
     <div class="p-login">
-        <ElForm class="c-login-form" ref="loginFormRef" :model="form" :rules="rules">
+        <VanForm class="c-login-form" @submit="onSubmit">
             <div class="c-login-form_header">登录</div>
 
             <div class="c-login-form_body">
-                <ElFormItem prop="username">
-                    <ElInput v-model="form.username" placeholder="Username" type="text" size="large" />
-                </ElFormItem>
+                <VanCellGroup inset>
+                    <VanField v-model="form.username" name="username" label="用户名" placeholder="用户名"
+                        :rules="[{ required: true, message: '请填写用户名' }]" />
+                    <VanField v-model="form.password" type="password" name="password" label="密码" placeholder="密码"
+                        :rules="[{ required: true, message: '请填写密码' }]" />
 
-                <ElFormItem prop="password">
-                    <ElInput v-model="form.password" placeholder="Password" type="password" size="large" />
-                </ElFormItem>
-
-                <ElButton class="c-login-form_login-btn" size="large" type="primary" @click="submit">登录</ElButton>
+                    <VanButton class="c-login-form_login-btn" round block type="primary" native-type="submit">登录
+                    </VanButton>
+                </VanCellGroup>
             </div>
-
-        </ElForm>
+        </VanForm>
     </div>
 </template>
   
 <script setup lang="ts">
-import type { FormRules, FormInstance } from 'element-plus';
 import useUserStore from '@/store/modules/user';
 import { RouteRecordName } from '@/router/types';
 
@@ -29,33 +27,15 @@ const userStore = useUserStore();
 const router = useRouter();
 const curRoute = useRoute();
 
-const loginFormRef = ref<FormInstance>();
 const form = reactive({
     username: '',
-    password: ''
+    password: '',
 })
 
-const rules: FormRules = {
-    username: {
-        required: true,
-        message: '用户名不能为空！'
-    },
-    password: {
-        required: true,
-        message: '密码不能为空！'
-    }
-}
-
-function submit() {
-    loginFormRef.value?.validate(async (vaild) => {
-        if (vaild) {
-            await userStore.login({
-                username: form.username,
-                password: form.password
-            });
-            router.replace({ name: curRoute.query.redirect as (undefined | RouteRecordName) || RouteRecordName.Index })
-        }
-    })
+// 提交表单
+async function onSubmit() {
+    await userStore.login(toRaw(form));
+    router.replace({ name: curRoute.query.redirect as (undefined | RouteRecordName) || RouteRecordName.Index })
 }
 
 </script>

@@ -1,36 +1,37 @@
 <template>
     <div class="p-layout">
         <div class="p-layout_header">
-            <NavbarVue />
+            <VanNavBar :title="curRoute.meta.title" />
         </div>
 
         <div class="p-layout_body">
-            <div class="p-layout_sidebar">
-                <SidebarVue />
-            </div>
+            <RouterView #default="{ Component }">
+                <KeepAlive>
+                    <component :is="Component"></component>
+                </KeepAlive>
+            </RouterView>
+        </div>
 
-            <div class="p-layout_main">
-                <div class="p-layout_breadcrumb">
-                    <BreadcrumbVue />
-                </div>
-
-
-                <div class="p-layout_content">
-                    <RouterView #default="{ Component }">
-                        <KeepAlive>
-                            <component :is="Component"></component>
-                        </KeepAlive>
-                    </RouterView>
-                </div>
-            </div>
+        <div class="p-layout_footer">
+            <VanTabbar route>
+                <VanTabbarItem v-for="(route, index) in menuRoute.children" :key="index"
+                    :to="path.resolve(menuRoute.path, route.path)">
+                    <span>{{ route.meta?.title }}</span>
+                    <template #icon>
+                        <SvgIcon :icon-class="route.meta?.icon"></SvgIcon>
+                    </template>
+                </VanTabbarItem>
+            </VanTabbar>
         </div>
     </div>
 </template>
 
 <script setup lang="ts">
-import SidebarVue from './components/Sidebar/index.vue';
-import NavbarVue from './components/Navbar/index.vue';
-import BreadcrumbVue from './components/Breadcrumb.vue';
+import { menuRoute } from '@/router'
+import path from 'path-browserify';
+
+const curRoute = useRoute();
+
 </script>
 
 <style scoped lang="scss">
@@ -44,35 +45,12 @@ import BreadcrumbVue from './components/Breadcrumb.vue';
     }
 
     &_body {
-        display: flex;
+        overflow: hidden;
         flex: 1 1 auto;
     }
 
-    &_sidebar {
-        padding: 0 20px;
-        flex: 0 0 250px;
-    }
-
-    &_main {
-        flex: 1 1 auto;
-        background: #F7F6FA;
-        display: flex;
-        flex-direction: column;
-        padding: 0 40px;
-    }
-
-    &_breadcrumb {
-        flex: 0 0 40px;
-        display: flex;
-        align-items: center;
-    }
-
-    &_content {
-        flex: 1 1 auto;
-    }
-
-    :deep(.el-menu--vertical) {
-        height: 100%;
+    &_footer {
+        flex: 0 0 auto;
     }
 }
 </style>

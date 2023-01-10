@@ -8,26 +8,27 @@ export const menuRoute: customRouteRecordRaw = {
   path: '/',
   name: RouteRecordName.Index,
   component: LayoutVue,
-  redirect: { name: RouteRecordName.Dashboard },
+  redirect: { name: RouteRecordName.Home },
   children: [
     {
-      path: 'dashboard',
-      name: RouteRecordName.Dashboard,
-      component: () => import('@/views/Dashboard.vue'),
+      path: 'home',
+      name: RouteRecordName.Home,
+      component: () => import('@/views/Home.vue'),
       meta: {
         title: '主页',
-        icon: 'dashboard'
+        icon: 'home'
       },
     },
     {
-      path: 'about',
-      name: RouteRecordName.About,
-      component: () => import('@/views/About.vue'),
+      path: 'user',
+      name: RouteRecordName.User,
+      component: () => import('@/views/User.vue'),
       meta: {
-        title: '关于',
-        icon: 'menu'
+        title: '我的',
+        icon: 'user'
       }
     },
+
   ]
 }
 

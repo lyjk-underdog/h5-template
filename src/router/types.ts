@@ -17,6 +17,6 @@ export const enum RouteRecordName {
     Index = 'IndexView',
     Error = 'ErrorView',
     Login = 'LoginView',
-    Dashboard = 'DashboardView',
-    About = 'AboutView'
+    Home = 'HomeView',
+    User = 'UserView'
 }

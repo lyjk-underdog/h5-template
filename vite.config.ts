@@ -5,10 +5,12 @@ import vue from '@vitejs/plugin-vue'
 import vueJsx from '@vitejs/plugin-vue-jsx'
 import AutoImport from 'unplugin-auto-import/vite'
 import Components from 'unplugin-vue-components/vite'
-import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
+import { VantResolver } from 'unplugin-vue-components/resolvers'
 import { svgBuilder } from 'vite-svg-plugin'
 import { viteMockServe } from 'vite-plugin-mock';
-
+import IconTypes from './plugin/vite-plugin-icon2ts';
+import Windi from "vite-plugin-windicss";
+ 
 // https://vitejs.dev/config/
 export default defineConfig(({ command }) => ({
   plugins: [
@@ -16,12 +18,12 @@ export default defineConfig(({ command }) => ({
     vueJsx(),
     AutoImport({
       imports: ['vue', 'vue-router'],
-      resolvers: [ElementPlusResolver()],
+      resolvers: [VantResolver()],
       dts: 'types/auto-imports.d.ts',
     }),
     Components({
       dirs: ['src/components'],
-      resolvers: [ElementPlusResolver()],
+      resolvers: [VantResolver()],
       dts: 'types/components.d.ts'
     }),
     svgBuilder({ path: './src/icons/svg/', prefix: 'icon' }),
@@ -29,6 +31,11 @@ export default defineConfig(({ command }) => ({
       mockPath: 'mock',
       localEnabled: command === 'serve',
       prodEnabled: false
+    }),
+    IconTypes({
+      path: fileURLToPath(new URL('./src/icons/svg', import.meta.url)),
+      outFile:'types.ts',
+      typeName:'IconClass'
     })
   ],
   resolve: {

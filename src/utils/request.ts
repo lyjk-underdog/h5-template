@@ -1,88 +1,55 @@
-import axios, { Axios } from 'axios';
-import type { AxiosInstance, AxiosRequestConfig } from 'axios';
+import axios, { AxiosError } from 'axios';
+import type { AxiosRequestConfig } from 'axios';
 import useUserStore from '@/store/modules/user';
+import { showDialog } from 'vant';
 
 // 后端返回格式接口
-export interface ResultData<T> {
+export interface Result {
     code: 200 | 402 | 500;
     message: string;
-    data?: T;
 }
 
-interface RequestConfig<T> extends AxiosRequestConfig<T> {
-    data?: T,
-    params?: T
-}
 
-class Service {
-    private instance: AxiosInstance;
-
-    constructor(config: AxiosRequestConfig) {
-        this.instance = axios.create(config);
-
-        // 请求拦截
-        this.instance.interceptors.request.use(
-            (config) => {
-                const userStore = useUserStore();
-                if (userStore.token) {
-                    config.headers = {
-                        token: userStore.token
-                    }
-                }
-
-                return config;
-            },
-            (err) => {
-                console.error(err);
-                return Promise.reject(err);
-            }
-        )
-
-        // 响应拦截
-        this.instance.interceptors.response.use(
-            (response) => {
-                const data = response.data as ResultData<any>;
-                const userStore = useUserStore();
-
-                if (data.code !== 200) {
-                    ElMessage({
-                        type: 'error',
-                        message: data.message
-                    })
-
-                    if (data.code === 402) {
-                        userStore.resetToken();
-                        location.reload();
-                    }
-
-                    return Promise.reject(new Error(data.message))
-                }
-
-                return data;
-            },
-            (err) => {
-                console.error(err);
-                return Promise.reject(err)
-            }
-        )
-    }
-
-    /**
-     * @interface T 请求参数的interface
-     * @interface U 响应结构的interface
-     * @param {RequestConfig} config 
-     * @returns {Promise}
-    */
-    request<T, U>(config: RequestConfig<T>): Promise<U> {
-        return this.instance.request(config);
-    }
-
-}
-
-let service = new Service({
-    url: import.meta.env.BASE_URL,
+const service = axios.create({
+    url: import.meta.env.VITE_BASE_URL,
     timeout: 15000,
-    withCredentials: false
-});
+})
 
-export default service;
+service.interceptors.request.use(
+    (config) => {
+        const userStore = useUserStore();
+        if (userStore.token) {
+            config.headers = {
+                token: userStore.token
+            }
+        }
+
+        return config;
+    }
+)
+
+export async function request<T>(config: AxiosRequestConfig): Promise<Result & T> {
+    try {
+        const response = await service.request(config);
+        const data = response.data as Result & T;
+        const userStore = useUserStore();
+
+        if (data.code !== 200) {
+            if (data.code === 402) {
+                userStore.resetToken();
+                location.reload();
+            }
+
+            throw new AxiosError(data.message, undefined, config, undefined, response)
+        }
+
+        return data;
+    } catch (err) {
+        showDialog({
+            title: '错误',
+            message: (err as Error).message
+        })
+
+        throw err;
+    }
+}
