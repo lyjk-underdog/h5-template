@@ -9,7 +9,6 @@ import { VantResolver } from 'unplugin-vue-components/resolvers'
 import { svgBuilder } from 'vite-svg-plugin'
 import { viteMockServe } from 'vite-plugin-mock';
 import IconTypes from './plugin/vite-plugin-icon2ts';
-import Windi from "vite-plugin-windicss";
  
 // https://vitejs.dev/config/
 export default defineConfig(({ command }) => ({
